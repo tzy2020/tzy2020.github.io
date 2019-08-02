@@ -98,5 +98,6 @@ export default {
   },
   chainWebpack: webpackPlugin,
   hash: true,
-  publicPath: './dist/'
+  publicPath: './dist/',
+  history: 'hash',
 };

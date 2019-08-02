@@ -1,4 +1,4 @@
-const baseurl = 'http://127.0.0.1:7001';
+const baseurl = 'http://api.liushuaiqi.top';
 
 export const serverHost = baseurl;
 
