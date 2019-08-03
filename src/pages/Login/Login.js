@@ -59,7 +59,7 @@ class LoginPage extends Component {
 
             <UserName
               name="username"
-              placeholder={'用户名: admin or user'}
+              placeholder={'用户名: 注册邮箱'}
               rules={[
                 {
                   required: true,
@@ -69,7 +69,7 @@ class LoginPage extends Component {
             />
             <Password
               name="password"
-              placeholder={'密码: ant.design'}
+              placeholder={'密码: 密码长度需不少于6个字符'}
               rules={[
                 {
                   required: true,
