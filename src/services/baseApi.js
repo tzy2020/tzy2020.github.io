@@ -1,4 +1,4 @@
-const baseurl = 'http://api.liushuaiqi.top';
+const baseurl = 'https://api.liushuaiqi.top';
 
 export const serverHost = baseurl;
 
