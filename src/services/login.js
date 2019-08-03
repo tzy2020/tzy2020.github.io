@@ -20,3 +20,8 @@ export async function userRegister(params) {
 export async function userLogout() {
   return request(`${userApi}/logout`);
 }
+
+
+export async function getCaptcha({username}) {
+  return request(`${userApi}/captcha?username=${username}`);
+}

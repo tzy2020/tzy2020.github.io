@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'dva';
 import Link from 'umi/link';
 import router from 'umi/router';
-import { Form, Input, Button, Popover, Progress } from 'antd';
+import { Form, Input, Button, Popover, Progress, Row, Col } from 'antd';
 import styles from './Register.less';
 
 const FormItem = Form.Item;
@@ -44,17 +44,8 @@ class Register extends Component {
     help: '',
   };
 
-  componentDidUpdate() {
-    const { form, register } = this.props;
-    const account = form.getFieldValue('mail');
-    if (register.status === 'ok') {
-      router.push({
-        pathname: '/login/register-result',
-        state: {
-          account,
-        },
-      });
-    }
+  componentWillUnmount() {
+    clearInterval(this.interval);
   }
 
   getPasswordStatus = () => {
@@ -82,12 +73,6 @@ class Register extends Component {
         });
       }
     });
-  };
-
-  handleConfirmBlur = e => {
-    const { value } = e.target;
-    const { confirmDirty } = this.state;
-    this.setState({ confirmDirty: confirmDirty || !!value });
   };
 
   checkConfirm = (rule, value, callback) => {
@@ -145,10 +130,36 @@ class Register extends Component {
     ) : null;
   };
 
+
+  onGetCaptcha = () => {
+    let count = 30;
+
+    const { form, dispatch } = this.props;
+    form.validateFields(['username'], (err, values) => {
+      console.log(values, '=====');
+      if (!err) {
+        dispatch({
+          type: 'login/getCaptcha',
+          payload: {
+            ...values,
+          },
+        });
+
+        this.interval = setInterval(() => {
+          count -= 1;
+          this.setState({ count });
+          if (count === 0) {
+            clearInterval(this.interval);
+          }
+        }, 1000);
+      }
+    });
+  };
+
   render() {
     const { form, submitting } = this.props;
     const { getFieldDecorator } = form;
-    const { help, visible } = this.state;
+    const { help, visible, count } = this.state;
     return (
       <div className={styles.main}>
         <h3>
@@ -220,6 +231,37 @@ class Register extends Component {
                 placeholder="确认密码"
               />
             )}
+          </FormItem>
+          <FormItem>
+            <Row gutter={8}>
+              <Col span={16}>
+                {getFieldDecorator('captcha', {
+                  rules: [
+                    {
+                      required: true,
+                      message: '请输入验证码',
+                    },
+                  ],
+                })(
+                  <Input
+                    size="large"
+                    placeholder={'验证码'}
+                  />
+                )}
+              </Col>
+              <Col span={8}>
+                <Button
+                  size="large"
+                  disabled={count}
+                  className={styles.getCaptcha}
+                  onClick={this.onGetCaptcha}
+                >
+                  {count
+                    ? `${count} s`
+                    : '获取验证码'}
+                </Button>
+              </Col>
+            </Row>
           </FormItem>
           <FormItem>
             <Button

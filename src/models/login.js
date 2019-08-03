@@ -1,5 +1,5 @@
 import { message } from 'antd';
-import { userLogin, userRegister, userLogout } from '@/services/login';
+import { userLogin, userRegister, userLogout, getCaptcha } from '@/services/login';
 import { setAuthority } from '@/utils/authority';
 import { getPageQuery } from '@/utils/utils';
 import { reloadAuthorized } from '@/utils/Authorized';
@@ -13,6 +13,15 @@ export default {
   reducers: {},
 
   effects: {
+    * getCaptcha({ payload }, { call }) {
+      const res = yield call(getCaptcha, payload);
+      if (res && res.success) {
+        message.success('验证码已发送至您的注册邮箱！');
+      } else {
+        message.error(res && res.result.msg ? res.result.msg : '验证码发送发送失败，请稍后重试！');
+      }
+    },
+
     * login({ payload }, { call, put }) {
       const res = yield call(userLogin, payload);
       if (res && res.success) {

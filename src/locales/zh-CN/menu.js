@@ -12,4 +12,7 @@ export default {
 
   'menu.system': '系统管理',
   'menu.user': '用户管理',
+
+
+  'menu.blog': '站长博客',
 };

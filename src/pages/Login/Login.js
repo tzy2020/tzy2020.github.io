@@ -58,7 +58,6 @@ class LoginPage extends Component {
               <span>账户或密码错误!</span>}
 
             <UserName
-              defaultValue={'lsq2020@foxmail.com'}
               name="username"
               placeholder={'用户名: admin or user'}
               rules={[
@@ -69,7 +68,6 @@ class LoginPage extends Component {
               ]}
             />
             <Password
-              defaultValue={'123456'}
               name="password"
               placeholder={'密码: ant.design'}
               rules={[

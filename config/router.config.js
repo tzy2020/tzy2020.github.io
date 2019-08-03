@@ -57,6 +57,11 @@ export default [
         component: './System',
       },
       {
+        path: 'https://blog.liushuaiqi.top',
+        icon: 'read',
+        name: 'blog',
+      },
+      {
         path: '/exception',
         routes: [
           // exception
