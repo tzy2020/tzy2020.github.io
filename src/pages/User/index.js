@@ -96,8 +96,6 @@ class Users extends Component {
       loading,
       user: { list },
     } = this.props;
-    console.log('========user=====list========dataSource=========');
-    console.log(list);
     const { showUpdateRoleModal, editRecord } = this.state;
     return (
       <PageHeaderWrapper>

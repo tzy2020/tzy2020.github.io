@@ -16,7 +16,7 @@ export default {
     * getCaptcha({ payload }, { call }) {
       const res = yield call(getCaptcha, payload);
       if (res && res.success) {
-        message.success('验证码已发送至您的注册邮箱！');
+        message.success(`验证码已发送至您的${payload.username}注册邮箱！`, 5);
       } else {
         message.error(res && res.result.msg ? res.result.msg : '验证码发送发送失败，请稍后重试！');
       }

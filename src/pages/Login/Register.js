@@ -136,7 +136,6 @@ class Register extends Component {
 
     const { form, dispatch } = this.props;
     form.validateFields(['username'], (err, values) => {
-      console.log(values, '=====');
       if (!err) {
         dispatch({
           type: 'login/getCaptcha',
@@ -144,7 +143,7 @@ class Register extends Component {
             ...values,
           },
         });
-
+        this.setState({ count });
         this.interval = setInterval(() => {
           count -= 1;
           this.setState({ count });
