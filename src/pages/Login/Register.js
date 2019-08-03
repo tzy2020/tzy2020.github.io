@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'dva';
 import Link from 'umi/link';
-import router from 'umi/router';
 import { Form, Input, Button, Popover, Progress, Row, Col } from 'antd';
 import styles from './Register.less';
 
@@ -132,7 +131,7 @@ class Register extends Component {
 
 
   onGetCaptcha = () => {
-    let count = 30;
+    let count = 120;
 
     const { form, dispatch } = this.props;
     form.validateFields(['username'], (err, values) => {
