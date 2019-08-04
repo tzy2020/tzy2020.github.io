@@ -45,6 +45,12 @@ export default [
         component: './Profile',
       },
       {
+        path: '/password',
+        icon: 'eye-invisible',
+        name: 'password',
+        component: './Password',
+      },
+      {
         path: '/user',
         icon: 'user',
         name: 'user',

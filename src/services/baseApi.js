@@ -9,4 +9,5 @@ export const baseApi = {
   notesApi: `${baseurl}/api/notes`,
   systemApi: `${baseurl}/api/system`,
   profileApi: `${baseurl}/api/profile`,
+  passwordApi: `${baseurl}/api/password`,
 };

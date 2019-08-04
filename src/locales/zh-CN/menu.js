@@ -8,11 +8,12 @@ export default {
   'menu.notes.list': '笔记列表',
   'menu.notes.edit': '编辑笔记',
 
+  'menu.password': '密码本',
+
   'menu.profile': '个人中心',
 
   'menu.system': '系统管理',
   'menu.user': '用户管理',
-
 
   'menu.blog': '站长博客',
 };
