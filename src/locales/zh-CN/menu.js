@@ -10,6 +10,8 @@ export default {
 
   'menu.password': '密码本',
 
+  'menu.spider': 'Spider',
+
   'menu.profile': '个人中心',
 
   'menu.system': '系统管理',

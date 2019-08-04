@@ -51,6 +51,12 @@ export default [
         component: './Password',
       },
       {
+        path: '/spider',
+        icon: 'bug',
+        name: 'spider',
+        component: './Spider',
+      },
+      {
         path: '/user',
         icon: 'user',
         name: 'user',
