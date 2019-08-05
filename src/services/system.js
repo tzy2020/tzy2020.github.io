@@ -12,7 +12,7 @@ export async function fetchSystemInfo() {
 }
 
 export async function updateConfig(params) {
-  return request(`${systemApi}`, {
+  return request(`${systemApi}/config`, {
     method: 'PUT',
     data: {
       ...params

@@ -1,4 +1,4 @@
-import { fetchSystemConfig, updateConfig } from '@/services/system';
+import { fetchSystemConfig, updateConfig, fetchSystemInfo } from '@/services/system';
 import { message } from 'antd';
 
 export default {
@@ -7,6 +7,9 @@ export default {
   state: {
     notice: '',
     mode: 0,
+    systemInfo: {
+      mainInfo:{},
+    }
   },
 
   effects: {
@@ -31,6 +34,18 @@ export default {
         message.error('更新失败，请稍后再试！');
       }
     },
+
+    * fetchSystemInfo(_, { call, put }) {
+      const { result } = yield call(fetchSystemInfo);
+      yield put({
+        type: 'saveState',
+        payload: {
+          systemInfo: {
+            ...result,
+          },
+        }
+      });
+    },
   },
 
   reducers: {
@@ -45,10 +60,15 @@ export default {
   subscriptions: {
     setup({ dispatch, history }) {
       return history.listen(({ pathname }) => {
-        if (pathname === '/system') {
+        if (pathname === '/system/config') {
           dispatch({
             type: 'fetchSystemConfig',
-          })
+          });
+        }
+        if (pathname === '/system/info') {
+          dispatch({
+            type: 'fetchSystemInfo',
+          });
         }
       });
     },

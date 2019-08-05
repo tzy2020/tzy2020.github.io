@@ -15,6 +15,9 @@ export default {
   'menu.profile': '个人中心',
 
   'menu.system': '系统管理',
+  'menu.system.config': '系统配置',
+  'menu.system.info': '系统信息',
+
   'menu.user': '用户管理',
 
   'menu.blog': '站长博客',

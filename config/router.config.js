@@ -66,7 +66,21 @@ export default [
         path: '/system',
         icon: 'robot',
         name: 'system',
-        component: './System',
+        routes: [
+          { path: '/system', redirect: '/system/config' },
+          {
+            path: '/system/config',
+            icon: 'setting',
+            name: 'config',
+            component: './System/Config',
+          },
+          {
+            path: '/system/info',
+            icon: 'hdd',
+            name: 'info',
+            component: './System/Info',
+          },
+        ]
       },
       {
         path: 'https://blog.liushuaiqi.top',

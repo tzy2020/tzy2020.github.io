@@ -3,7 +3,9 @@ import { Chart, Tooltip, Geom, Legend, Axis } from 'bizcharts';
 import DataSet from '@antv/data-set';
 import Slider from 'bizcharts-plugin-slider';
 import autoHeight from '../autoHeight';
+import moment from 'moment';
 import styles from './index.less';
+import { bytesToSize } from '@/utils/utils';
 
 @autoHeight()
 class TimelineChart extends React.Component {
@@ -11,7 +13,7 @@ class TimelineChart extends React.Component {
     const {
       title,
       height = 400,
-      padding = [60, 20, 40, 40],
+      padding = [60, 50, 40, 60],
       titleMap = {
         y1: 'y1',
         y2: 'y2',
@@ -54,20 +56,21 @@ class TimelineChart extends React.Component {
           const newRow = { ...row };
           newRow[titleMap.y1] = row.y1;
           newRow[titleMap.y2] = row.y2;
+          newRow[titleMap.y3] = row.y3;
+
           return newRow;
         },
       })
       .transform({
         type: 'fold',
-        fields: [titleMap.y1, titleMap.y2], // 展开字段集
+        fields: [titleMap.y1, titleMap.y2, titleMap.y3], // 展开字段集
         key: 'key', // key字段
         value: 'value', // value字段
       });
 
     const timeScale = {
       type: 'time',
-      tickInterval: 60 * 60 * 1000,
-      mask: 'HH:mm',
+      mask: 'HH:mm:ss',
       range: [0, 1],
     };
 
@@ -99,17 +102,49 @@ class TimelineChart extends React.Component {
     );
 
     return (
-      <div className={styles.timelineChart} style={{ height: height + 30 }}>
+      <div className={styles.timelineChart} style={{ height: height + 80 }}>
         <div>
           {title && <h4>{title}</h4>}
-          <Chart height={height} padding={padding} data={dv} scale={cols} forceFit>
-            <Axis name="x" />
-            <Tooltip />
-            <Legend name="key" position="top" />
-            <Geom type="line" position="x*value" size={borderWidth} color="key" />
+          <Chart
+            height={height}
+            padding={padding}
+            data={dv}
+            scale={cols}
+            forceFit
+            onTooltipChange={ev => {
+              if (title.includes('内存')) {
+                try {
+                  ev.items[0].value = bytesToSize(ev.items[0].value);
+                  ev.items[1].value = bytesToSize(ev.items[1].value);
+                } catch (e) {}
+              }
+            }}
+          >
+            <Axis name="x"/>
+            <Axis
+              name="value"
+              label={{
+                formatter: val => title.includes('内存') ? bytesToSize(val) : val
+              }}
+            />
+            <Tooltip/>
+            <Legend name="key" position="top"/>
+            <Geom
+              type="line"
+              position="x*value"
+              size={borderWidth}
+              color="key"
+            />
+            <Geom
+              type="point"
+              position="x*value"
+              size={3}
+              shape={"circle"}
+              color={"key"}
+            />
           </Chart>
           <div style={{ marginRight: -20 }}>
-            <SliderGen />
+            <SliderGen/>
           </div>
         </div>
       </div>
