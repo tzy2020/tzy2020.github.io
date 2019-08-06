@@ -7,19 +7,16 @@ export async function fetchPassword() {
   return request(`${passwordApi}/list`);
 }
 
-export async function updatePassword(params) {
-  return request(`${passwordApi}/${params.id}`, {
-    method: 'PUT',
-    data: {
-      ...params,
-      id: undefined,
-    },
+export async function deletePassword(params) {
+  const { id } = params;
+  return request(`${passwordApi}/${id}`, {
+    method: 'DELETE',
   });
 }
 
-export async function deletePassword(params) {
+export async function submitPassword(params) {
   return request(passwordApi, {
-    method: 'DELETE',
+    method: 'POST',
     data: params,
   });
 }

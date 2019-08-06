@@ -39,12 +39,6 @@ export default [
         ]
       },
       {
-        path: '/profile',
-        icon: 'bank',
-        name: 'profile',
-        component: './Profile',
-      },
-      {
         path: '/password',
         icon: 'eye-invisible',
         name: 'password',
@@ -55,6 +49,12 @@ export default [
         icon: 'bug',
         name: 'spider',
         component: './Spider',
+      },
+      {
+        path: '/profile',
+        icon: 'bank',
+        name: 'profile',
+        component: './Profile',
       },
       {
         path: '/user',
