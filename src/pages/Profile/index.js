@@ -33,6 +33,7 @@ class Profile extends Component {
       type: 'profile/updateProfile',
       payload: {
         ...values,
+        username: undefined,
       },
     });
   };

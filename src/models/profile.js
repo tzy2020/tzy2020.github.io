@@ -26,6 +26,9 @@ export default {
         yield put({
           type: 'fetchProfile'
         });
+        yield put({
+          type: 'global/fetchCurrentUser'
+        });
       } else {
         message.error('更新失败，请稍后再试！');
       }

@@ -178,7 +178,7 @@ class Edit extends Component {
             </FormItem>
           </Form>
           <BraftEditor
-            defaultValue={editorState}
+            defaultValue={htmlContent ? editorState : undefined}
             onChange={this.handleEditorChange}
             onSave={this.saveContent}
             extendControls={extendControls}

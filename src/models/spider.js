@@ -39,13 +39,8 @@ export default {
 
   subscriptions: {
     setup({ dispatch, history }) {
-      // Subscribe history(url) change, trigger `load` action if pathname is `/`
       return history.listen(({ pathname }) => {
-        if (pathname === '/spider') {
-          dispatch({
-            type: 'fetchPassword',
-          });
-        }
+        if (pathname === '/spider') {}
       });
     },
   },
