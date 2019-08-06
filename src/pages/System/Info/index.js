@@ -4,9 +4,11 @@ import { Descriptions, Spin, Divider, Icon, Tooltip } from 'antd';
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
 import { bytesToSize } from '@/utils/utils';
 import SysChart from './SysChart';
+import DetailDrawer from './DetailDrawer';
 
 @connect(({ system, loading }) => ({
   systemInfo: system.systemInfo,
+  drawerData: system.drawerData,
   loading: loading.effects['system/fetchSystemInfo'],
 }))
 class SystemInfo extends Component {
@@ -37,6 +39,20 @@ class SystemInfo extends Component {
 
   };
 
+  toogolDrawerVisible = ({ visible, title, data }) => {
+    const { dispatch } = this.props;
+    dispatch({
+      type: 'system/saveState',
+      payload: {
+        drawerData: {
+          visible,
+          title,
+          data,
+        },
+      }
+    })
+  };
+
   render() {
     const {
       loading,
@@ -47,11 +63,15 @@ class SystemInfo extends Component {
           totalmem,
           freemem,
           cpus,
+          networkInterfaces,
           loadavg,
           release,
           uptime,
         },
-        chartData
+        chartData,
+      },
+      drawerData: {
+        visible, data, title
       },
     } = this.props;
 
@@ -77,16 +97,26 @@ class SystemInfo extends Component {
             <Descriptions.Item label="平台">{platform}</Descriptions.Item>
             <Descriptions.Item label="架构">{arch}</Descriptions.Item>
             <Descriptions.Item label="版本">{release}</Descriptions.Item>
-            <Descriptions.Item label="内存总量">{bytesToSize(totalmem)}</Descriptions.Item>
-            <Descriptions.Item label="剩余内存">{bytesToSize(freemem)}</Descriptions.Item>
-            <Descriptions.Item label="CPU核心数">{cpus && cpus.length}</Descriptions.Item>
             <Descriptions.Item label="最近15m平均负载">{loadavg && loadavg[2].toFixed(3)}</Descriptions.Item>
             <Descriptions.Item label="最近5m平均负载">{loadavg && loadavg[1].toFixed(3)}</Descriptions.Item>
             <Descriptions.Item label="最近1m平均负载">{loadavg && loadavg[0].toFixed(3)}</Descriptions.Item>
+            <Descriptions.Item label="内存总量">{bytesToSize(totalmem)}</Descriptions.Item>
+            <Descriptions.Item label="剩余内存">{bytesToSize(freemem)}</Descriptions.Item>
+            <Descriptions.Item label="CPU核心数">
+              <a onClick={() => this.toogolDrawerVisible({ visible: true, title: 'CPU信息', data: cpus })}>
+                {cpus && cpus.length}
+              </a>
+            </Descriptions.Item>
+            <Descriptions.Item label="网卡数量">
+              <a onClick={() => this.toogolDrawerVisible({ visible: true, title: '网卡信息', data: networkInterfaces })}>
+                {networkInterfaces && Object.keys(networkInterfaces).length}
+              </a>
+            </Descriptions.Item>
             <Descriptions.Item label="系统已运行时间">{this.formateTime(uptime)}</Descriptions.Item>
           </Descriptions>
           <Divider/>
-          <SysChart data={chartData} />
+          <SysChart data={chartData}/>
+          <DetailDrawer visible={visible} title={title} data={data} toogolDrawerVisible={this.toogolDrawerVisible}/>
         </Spin>
       </PageHeaderWrapper>
     );

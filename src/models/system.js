@@ -9,7 +9,12 @@ export default {
     mode: 0,
     systemInfo: {
       mainInfo:{},
-    }
+    },
+    drawerData: {
+      visible: false,
+      title: '',
+      data: [],
+    },
   },
 
   effects: {
