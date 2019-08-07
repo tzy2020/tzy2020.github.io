@@ -1,8 +1,5 @@
 import { message } from 'antd';
 import { userLogin, userRegister, userLogout, getCaptcha } from '@/services/login';
-import { setAuthority } from '@/utils/authority';
-import { getPageQuery } from '@/utils/utils';
-import { reloadAuthorized } from '@/utils/Authorized';
 import router from 'umi/router';
 
 export default {
@@ -13,7 +10,7 @@ export default {
   reducers: {},
 
   effects: {
-    * getCaptcha({ payload }, { call }) {
+    *getCaptcha({ payload }, { call }) {
       const res = yield call(getCaptcha, payload);
       if (res && res.success) {
         message.success(`验证码已发送至您的${payload.username}注册邮箱！`, 5);
@@ -22,7 +19,7 @@ export default {
       }
     },
 
-    * login({ payload }, { call, put }) {
+    *login({ payload }, { call, put }) {
       const res = yield call(userLogin, payload);
       if (res && res.success) {
         message.success('登录成功！');
@@ -35,7 +32,7 @@ export default {
       }
     },
 
-    * register({ payload }, { call, put }) {
+    *register({ payload }, { call, put }) {
       const res = yield call(userRegister, payload);
       if (res && res.success) {
         message.success('注册成功！');
@@ -48,7 +45,7 @@ export default {
       }
     },
 
-    * logout(_, { call }) {
+    *logout(_, { call }) {
       const res = yield call(userLogout);
       if (res && res.success) {
         message.success('登出成功！');

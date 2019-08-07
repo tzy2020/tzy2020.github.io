@@ -45,9 +45,7 @@ class System extends Component {
   render() {
     const {
       form: { getFieldDecorator },
-      system: {
-        notice, mode,
-      },
+      system: { notice, mode },
       loading,
       submiting,
     } = this.props;
@@ -62,12 +60,7 @@ class System extends Component {
                   {getFieldDecorator('mode', {
                     initialValue: Boolean(Number(mode)),
                     valuePropName: 'checked',
-                  })(
-                    <Switch
-                      unCheckedChildren="关闭中"
-                      checkedChildren="开放中"
-                    />
-                  )}
+                  })(<Switch unCheckedChildren="关闭中" checkedChildren="开放中" />)}
                 </Form.Item>
               </Row>
               <Row>
@@ -86,8 +79,12 @@ class System extends Component {
               </Row>
               <Row style={{ textAlign: 'right' }}>
                 <Col>
-                  <Button onClick={this.resetFields} style={{ marginRight: 10 }}>重置</Button>
-                  <Button type={'primary'} onClick={this.updateConfig} loading={submiting}>提交</Button>
+                  <Button onClick={this.resetFields} style={{ marginRight: 10 }}>
+                    重置
+                  </Button>
+                  <Button type="primary" onClick={this.updateConfig} loading={submiting}>
+                    提交
+                  </Button>
                 </Col>
               </Row>
             </Form>

@@ -7,21 +7,9 @@ import styles from './Register.less';
 const FormItem = Form.Item;
 
 const passwordStatusMap = {
-  ok: (
-    <div className={styles.success}>
-      强度：强
-    </div>
-  ),
-  pass: (
-    <div className={styles.warning}>
-      强度：中
-    </div>
-  ),
-  poor: (
-    <div className={styles.error}>
-      强度：太短
-    </div>
-  ),
+  ok: <div className={styles.success}>强度：强</div>,
+  pass: <div className={styles.warning}>强度：中</div>,
+  poor: <div className={styles.error}>强度：太短</div>,
 };
 
 const passwordProgressMap = {
@@ -77,7 +65,7 @@ class Register extends Component {
   checkConfirm = (rule, value, callback) => {
     const { form } = this.props;
     if (value && value !== form.getFieldValue('password')) {
-      callback("两次输入的密码不匹配!");
+      callback('两次输入的密码不匹配!');
     } else {
       callback();
     }
@@ -87,7 +75,7 @@ class Register extends Component {
     const { visible, confirmDirty } = this.state;
     if (!value) {
       this.setState({
-        help: "请输入密码！",
+        help: '请输入密码！',
         visible: !!value,
       });
       callback('error');
@@ -129,7 +117,6 @@ class Register extends Component {
     ) : null;
   };
 
-
   onGetCaptcha = () => {
     let count = 120;
 
@@ -160,9 +147,7 @@ class Register extends Component {
     const { help, visible, count } = this.state;
     return (
       <div className={styles.main}>
-        <h3>
-          注册
-        </h3>
+        <h3>注册</h3>
         <Form onSubmit={this.handleSubmit}>
           <FormItem>
             {getFieldDecorator('username', {
@@ -176,9 +161,7 @@ class Register extends Component {
                   message: '邮箱地址格式错误！',
                 },
               ],
-            })(
-              <Input size="large" placeholder="邮箱" />
-            )}
+            })(<Input size="large" placeholder="邮箱" />)}
           </FormItem>
           <FormItem help={help}>
             <Popover
@@ -202,13 +185,7 @@ class Register extends Component {
                     validator: this.checkPassword,
                   },
                 ],
-              })(
-                <Input
-                  size="large"
-                  type="password"
-                  placeholder="至少6位密码，区分大小写"
-                />
-              )}
+              })(<Input size="large" type="password" placeholder="至少6位密码，区分大小写" />)}
             </Popover>
           </FormItem>
           <FormItem>
@@ -216,19 +193,13 @@ class Register extends Component {
               rules: [
                 {
                   required: true,
-                  message: "请确认密码！",
+                  message: '请确认密码！',
                 },
                 {
                   validator: this.checkConfirm,
                 },
               ],
-            })(
-              <Input
-                size="large"
-                type="password"
-                placeholder="确认密码"
-              />
-            )}
+            })(<Input size="large" type="password" placeholder="确认密码" />)}
           </FormItem>
           <FormItem>
             <Row gutter={8}>
@@ -240,12 +211,7 @@ class Register extends Component {
                       message: '请输入验证码',
                     },
                   ],
-                })(
-                  <Input
-                    size="large"
-                    placeholder={'验证码'}
-                  />
-                )}
+                })(<Input size="large" placeholder="验证码" />)}
               </Col>
               <Col span={8}>
                 <Button
@@ -254,9 +220,7 @@ class Register extends Component {
                   className={styles.getCaptcha}
                   onClick={this.onGetCaptcha}
                 >
-                  {count
-                    ? `${count} s`
-                    : '获取验证码'}
+                  {count ? `${count} s` : '获取验证码'}
                 </Button>
               </Col>
             </Row>

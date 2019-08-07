@@ -1,11 +1,15 @@
-import React, { Component } from "react";
-import { Drawer, Form, Input, Button } from "antd";
+import React, { Component } from 'react';
+import { Drawer, Form, Input, Button } from 'antd';
 
 const { Item: FormItem } = Form;
 
 class EditDrawer extends Component {
   onSubmit = () => {
-    const { form: { validateFieldsAndScroll }, onSubmit, record } = this.props;
+    const {
+      form: { validateFieldsAndScroll },
+      onSubmit,
+      record,
+    } = this.props;
     validateFieldsAndScroll((err, values) => {
       if (!err) {
         onSubmit({
@@ -13,11 +17,18 @@ class EditDrawer extends Component {
           id: record.id,
         });
       }
-    })
+    });
   };
 
   render() {
-    const { form: { getFieldDecorator }, toggleEditDrawer, record, visible, title, submitting } = this.props;
+    const {
+      form: { getFieldDecorator },
+      toggleEditDrawer,
+      record,
+      visible,
+      title,
+      submitting,
+    } = this.props;
     return (
       <Drawer
         title={title}
@@ -27,48 +38,45 @@ class EditDrawer extends Component {
         width={600}
       >
         <Form>
-          <FormItem label={'标题'}>
+          <FormItem label="标题">
             {getFieldDecorator('title', {
               initialValue: record.title,
-            })(<Input
-              placeholder="请输入标题"
-            />)}
+            })(<Input placeholder="请输入标题" />)}
           </FormItem>
-          <FormItem label={'网址'}>
+          <FormItem label="网址">
             {getFieldDecorator('url', {
               initialValue: record.url,
-            })(<Input
-              placeholder="请输入网址，形如：https://liushuaiqi.top"
-            />)}
+            })(<Input placeholder="请输入网址，形如：https://liushuaiqi.top" />)}
           </FormItem>
-          <FormItem label={'账号'}>
+          <FormItem label="账号">
             {getFieldDecorator('account', {
               initialValue: record.account,
-            })(<Input
-              placeholder="请输入账号"
-            />)}
+            })(<Input placeholder="请输入账号" />)}
           </FormItem>
-          <FormItem label={'密码'}>
+          <FormItem label="密码">
             {getFieldDecorator('password', {
               initialValue: record.password,
-            })(<Input
-              placeholder="请输入密码"
-            />)}
+            })(<Input placeholder="请输入密码" />)}
           </FormItem>
-          <FormItem label={'备注'}>
+          <FormItem label="备注">
             {getFieldDecorator('memo', {
               initialValue: record.memo,
-            })(<Input
-              placeholder="备注"
-            />)}
+            })(<Input placeholder="备注" />)}
           </FormItem>
         </Form>
         <div style={{ textAlign: 'right' }}>
-          <Button onClick={() => toggleEditDrawer({ visible: false, title: '', record: {} })} style={{ marginRight: 10 }}>取消</Button>
-          <Button type={'primary'} onClick={this.onSubmit} loading={submitting}>提交</Button>
+          <Button
+            onClick={() => toggleEditDrawer({ visible: false, title: '', record: {} })}
+            style={{ marginRight: 10 }}
+          >
+            取消
+          </Button>
+          <Button type="primary" onClick={this.onSubmit} loading={submitting}>
+            提交
+          </Button>
         </div>
       </Drawer>
-    )
+    );
   }
 }
 

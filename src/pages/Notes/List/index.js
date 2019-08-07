@@ -1,9 +1,9 @@
-import { Component } from 'react';
+import React, { Component } from 'react';
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
 import { Divider, Spin } from 'antd';
+import { connect } from 'dva';
 import Search from './Search';
 import List from './List';
-import { connect } from "dva";
 
 @connect(({ notes, loading }) => ({
   notes,
@@ -24,18 +24,12 @@ class Noets extends Component {
     return (
       <PageHeaderWrapper>
         <Spin spinning={Boolean(loading)}>
-          <Search
-            onSubmit={this.onSubmit}
-            loading={loading}
-          />
-          <Divider/>
-          <List
-            dispatch={dispatch}
-            data={list}
-          />
+          <Search onSubmit={this.onSubmit} loading={loading} />
+          <Divider />
+          <List dispatch={dispatch} data={list} />
         </Spin>
       </PageHeaderWrapper>
-    )
+    );
   }
 }
 

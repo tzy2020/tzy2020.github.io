@@ -1,14 +1,15 @@
-import { Component } from 'react';
+import React, { Component } from 'react';
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
 import { Form, Input, Button, message, Row, Col, Select, Spin, Switch } from 'antd';
-import { connect } from "dva";
+import { connect } from 'dva';
 import moment from 'moment';
-import BraftEditor from 'braft-editor'
-import 'braft-editor/dist/index.css'
+import BraftEditor from 'braft-editor';
+import 'braft-editor/dist/index.css';
 
 const { Item: FormItem } = Form;
 const layout = {
-  sm: 24, md: 8,
+  sm: 24,
+  md: 8,
 };
 
 @connect(({ notes, loading }) => ({
@@ -19,17 +20,17 @@ const layout = {
 }))
 class Edit extends Component {
   state = {
-    editorState: null
+    editorState: null,
   };
 
-  componentWillUnmount(){
+  componentWillUnmount() {
     const { dispatch } = this.props;
     dispatch({
       type: 'notes/saveState',
       payload: {
         noteDetail: {},
-      }
-    })
+      },
+    });
   }
 
   saveContent = async editorState => {
@@ -41,7 +42,7 @@ class Edit extends Component {
       type: 'notes/saveNoteDetail',
       payload: {
         htmlContent,
-      }
+      },
     });
     message.success(`${moment().format('HH:mm:ss')} 保存成功！`);
   };
@@ -50,7 +51,7 @@ class Edit extends Component {
     this.setState({ editorState });
   };
 
-  buildPreviewHtml() {
+  buildPreviewHtml = () => {
     return `
       <!Doctype html>
       <html>
@@ -103,12 +104,12 @@ class Edit extends Component {
           <div class="container">${this.state.editorState && this.state.editorState.toHTML()}</div>
         </body>
       </html>
-    `
-  }
+    `;
+  };
 
   preview = () => {
     if (window.previewWindow) {
-      window.previewWindow.close()
+      window.previewWindow.close();
     }
 
     window.previewWindow = window.open();
@@ -117,7 +118,11 @@ class Edit extends Component {
   };
 
   onSubmit = () => {
-    const { dispatch, form: { validateFieldsAndScroll }, noteDetail: { noteId } } = this.props;
+    const {
+      dispatch,
+      form: { validateFieldsAndScroll },
+      noteDetail: { noteId },
+    } = this.props;
     const htmlContent = this.state.editorState ? this.state.editorState.toHTML() : '';
     validateFieldsAndScroll((err, values) => {
       if (err === null) {
@@ -130,9 +135,9 @@ class Edit extends Component {
             noteId,
             isPublic: String(values.isPublic),
           },
-        })
+        });
       }
-    })
+    });
   };
 
   render() {
@@ -141,8 +146,8 @@ class Edit extends Component {
         key: 'custom-button',
         type: 'button',
         text: '预览',
-        onClick: this.preview
-      }
+        onClick: this.preview,
+      },
     ];
     const {
       form: { getFieldDecorator },
@@ -159,40 +164,26 @@ class Edit extends Component {
           <h3>{noteId === undefined ? '添加笔记' : '更新笔记'}</h3>
           <Form>
             <Row gutter={20}>
-              <Col { ...layout }>
-                <FormItem label={'标题'}>
+              <Col {...layout}>
+                <FormItem label="标题">
                   {getFieldDecorator('title', {
-                    initialValue: title
-                  })(
-                    <Input
-                      placeholder={'请输入笔记标题'}
-                    />
-                  )}
+                    initialValue: title,
+                  })(<Input placeholder="请输入笔记标题" />)}
                 </FormItem>
               </Col>
-              <Col { ...layout }>
-                <FormItem label={'关键词'}>
+              <Col {...layout}>
+                <FormItem label="关键词">
                   {getFieldDecorator('keyword', {
                     initialValue: keyword,
-                  })(
-                    <Select
-                      mode={'tags'}
-                      placeholder={'请输入笔记关键词，按回车结束'}
-                    />
-                  )}
+                  })(<Select mode="tags" placeholder="请输入笔记关键词，按回车结束" />)}
                 </FormItem>
               </Col>
-              <Col { ...layout }>
-                <FormItem label={'是否共享'}>
+              <Col {...layout}>
+                <FormItem label="是否共享">
                   {getFieldDecorator('isPublic', {
                     valuePropName: 'checked',
-                    initialValue:  isPublic === 'true' ? true : false,
-                  })(
-                    <Switch
-                      checkedChildren="共享"
-                      unCheckedChildren="私有"
-                    />
-                  )}
+                    initialValue: isPublic === 'true',
+                  })(<Switch checkedChildren="共享" unCheckedChildren="私有" />)}
                 </FormItem>
               </Col>
             </Row>
@@ -205,16 +196,14 @@ class Edit extends Component {
           />
           <Row style={{ textAlign: 'right' }}>
             <Col>
-              <Button
-                type={'primary'}
-                onClick={this.onSubmit}
-                loading={submitting}
-              >提交</Button>
+              <Button type="primary" onClick={this.onSubmit} loading={submitting}>
+                提交
+              </Button>
             </Col>
           </Row>
         </Spin>
       </PageHeaderWrapper>
-    )
+    );
   }
 }
 

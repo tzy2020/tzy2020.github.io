@@ -113,37 +113,27 @@ class TimelineChart extends React.Component {
             onTooltipChange={ev => {
               if (title.includes('内存')) {
                 try {
+                  /*eslint-disable*/
                   ev.items[0].value = bytesToSize(ev.items[0].value);
                   ev.items[1].value = bytesToSize(ev.items[1].value);
                 } catch (e) {}
               }
             }}
           >
-            <Axis name="x"/>
+            <Axis name="x" />
             <Axis
               name="value"
               label={{
-                formatter: val => title.includes('内存') ? bytesToSize(val) : val
+                formatter: val => (title.includes('内存') ? bytesToSize(val) : val),
               }}
             />
-            <Tooltip/>
-            <Legend name="key" position="top"/>
-            <Geom
-              type="line"
-              position="x*value"
-              size={borderWidth}
-              color="key"
-            />
-            <Geom
-              type="point"
-              position="x*value"
-              size={3}
-              shape={"circle"}
-              color={"key"}
-            />
+            <Tooltip />
+            <Legend name="key" position="top" />
+            <Geom type="line" position="x*value" size={borderWidth} color="key" />
+            <Geom type="point" position="x*value" size={3} shape="circle" color="key" />
           </Chart>
           <div style={{ marginRight: -20 }}>
-            <SliderGen/>
+            <SliderGen />
           </div>
         </div>
       </div>

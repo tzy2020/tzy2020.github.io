@@ -42,12 +42,16 @@ const query = {
 
 class BasicLayout extends React.Component {
   componentDidMount() {
-    const { dispatch, route: { routes, path, authority }, } = this.props;
+    const {
+      dispatch,
+      route: { routes, path, authority },
+    } = this.props;
     dispatch({
       type: 'menu/getMenuData',
       payload: { routes, path, authority },
     });
   }
+
   getContext() {
     const { location, breadcrumbNameMap } = this.props;
     return {

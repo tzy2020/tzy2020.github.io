@@ -45,9 +45,7 @@ class Profile extends Component {
   render() {
     const {
       form: { getFieldDecorator },
-      profile: {
-        username, qq, tel, wechat, email, nickname, signature,
-      },
+      profile: { username, qq, tel, wechat, email, nickname, signature },
       loading,
       submiting,
     } = this.props;
@@ -61,20 +59,14 @@ class Profile extends Component {
                 <Form.Item label="用户名" {...formItemLayout}>
                   {getFieldDecorator('username', {
                     initialValue: username,
-                  })(
-                    <Input disabled/>
-                  )}
+                  })(<Input disabled />)}
                 </Form.Item>
               </Row>
               <Row>
                 <Form.Item label="昵称" {...formItemLayout}>
                   {getFieldDecorator('nickname', {
                     initialValue: nickname,
-                  })(
-                    <Input
-                      placeholder={'请输入昵称！'}
-                    />
-                  )}
+                  })(<Input placeholder="请输入昵称！" />)}
                 </Form.Item>
               </Row>
               <Row>
@@ -82,11 +74,7 @@ class Profile extends Component {
                   <Form.Item label="手机号" {...formItemLayout}>
                     {getFieldDecorator('tel', {
                       initialValue: tel,
-                    })(
-                      <Input
-                        placeholder={'请输入手机号！'}
-                      />
-                    )}
+                    })(<Input placeholder="请输入手机号！" />)}
                   </Form.Item>
                 </Col>
               </Row>
@@ -95,11 +83,7 @@ class Profile extends Component {
                   <Form.Item label="微信号" {...formItemLayout}>
                     {getFieldDecorator('wechat', {
                       initialValue: wechat,
-                    })(
-                      <Input
-                        placeholder={'请输入微信号！'}
-                      />
-                    )}
+                    })(<Input placeholder="请输入微信号！" />)}
                   </Form.Item>
                 </Col>
               </Row>
@@ -108,11 +92,7 @@ class Profile extends Component {
                   <Form.Item label="QQ号" {...formItemLayout}>
                     {getFieldDecorator('qq', {
                       initialValue: qq,
-                    })(
-                      <Input
-                        placeholder={'请输入QQ号！'}
-                      />
-                    )}
+                    })(<Input placeholder="请输入QQ号！" />)}
                   </Form.Item>
                 </Col>
               </Row>
@@ -121,11 +101,7 @@ class Profile extends Component {
                   <Form.Item label="电子邮箱" {...formItemLayout}>
                     {getFieldDecorator('email', {
                       initialValue: email,
-                    })(
-                      <Input
-                        placeholder={'请输入电子邮箱！'}
-                      />
-                    )}
+                    })(<Input placeholder="请输入电子邮箱！" />)}
                   </Form.Item>
                 </Col>
               </Row>
@@ -145,8 +121,12 @@ class Profile extends Component {
               </Row>
               <Row style={{ textAlign: 'right' }}>
                 <Col>
-                  <Button onClick={this.resetFields} style={{ marginRight: 10 }}>重置</Button>
-                  <Button type={'primary'} onClick={this.updateConfig} loading={submiting}>提交</Button>
+                  <Button onClick={this.resetFields} style={{ marginRight: 10 }}>
+                    重置
+                  </Button>
+                  <Button type="primary" onClick={this.updateConfig} loading={submiting}>
+                    提交
+                  </Button>
                 </Col>
               </Row>
             </Form>

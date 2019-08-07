@@ -1,9 +1,4 @@
-import {
-  fetchCurrentUser,
-  fetchGlobalNotice,
-  updateGlobalNotice,
-  logout,
-} from '@/services/global';
+import { fetchCurrentUser } from '@/services/global';
 import { reloadAuthorized } from '../utils/Authorized';
 
 export default {
@@ -20,7 +15,7 @@ export default {
 
   effects: {
     // 当前用户
-    * fetchCurrentUser(_, { call, put }) {
+    *fetchCurrentUser(_, { call, put }) {
       const { result, success } = yield call(fetchCurrentUser);
       if (success) {
         yield put({
@@ -62,6 +57,4 @@ export default {
       });
     },
   },
-
-
 };

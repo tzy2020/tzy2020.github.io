@@ -24,7 +24,6 @@ class Login extends Component {
     super(props);
     this.state = {
       type: props.defaultActiveKey,
-      tabs: [],
       active: {},
     };
   }
@@ -44,9 +43,7 @@ class Login extends Component {
     return (
       <LoginContext.Provider value={form}>
         <div className={classNames(className, styles.login)}>
-          <Form onSubmit={this.handleSubmit}>
-            {children}
-          </Form>
+          <Form onSubmit={this.handleSubmit}>{children}</Form>
         </div>
       </LoginContext.Provider>
     );

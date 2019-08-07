@@ -12,21 +12,21 @@ export default {
   effects: {
     *fetchPassword(_, { call, put }) {
       const { result, success } = yield call(fetchPassword);
-      if(success){
+      if (success) {
         yield put({
           type: 'save',
           result,
         });
       }
     },
-    * deletePassword({ payload }, { call, put }) {
+    *deletePassword({ payload }, { call, put }) {
       const res = yield call(deletePassword, payload);
-      if(res && res.success){
+      if (res && res.success) {
         message.success('删除成功！');
         yield put({ type: 'fetchPassword' });
         return;
       }
-      message.error( res && res.result.msg ? res.result.msg : '删除失败，请稍后再试！')
+      message.error(res && res.result.msg ? res.result.msg : '删除失败，请稍后再试！');
     },
   },
 
@@ -39,11 +39,11 @@ export default {
     },
   },
 
-  subscriptions: {
-    setup({ dispatch, history }) {
-      return history.listen(({ pathname }) => {
-        if (pathname === '/spider') {}
-      });
-    },
-  },
+  // subscriptions: {
+  //   setup({ dispatch, history }) {
+  //     return history.listen(({ pathname }) => {
+  //       if (pathname === '/spider') {}
+  //     });
+  //   },
+  // },
 };

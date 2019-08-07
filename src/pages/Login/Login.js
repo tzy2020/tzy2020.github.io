@@ -53,34 +53,32 @@ class LoginPage extends Component {
             this.loginForm = form;
           }}
         >
-            {login.status === 'error' &&
-              !submitting &&
-              <span>账户或密码错误!</span>}
+          {login.status === 'error' && !submitting && <span>账户或密码错误!</span>}
 
-            <UserName
-              name="username"
-              placeholder={'用户名: 注册邮箱'}
-              rules={[
-                {
-                  required: true,
-                  message: '请输入用户名!',
-                },
-              ]}
-            />
-            <Password
-              name="password"
-              placeholder={'密码: 密码长度需不少于6个字符'}
-              rules={[
-                {
-                  required: true,
-                  message: '请输入密码!',
-                },
-              ]}
-              onPressEnter={e => {
-                e.preventDefault();
-                this.loginForm.validateFields(this.handleSubmit);
-              }}
-            />
+          <UserName
+            name="username"
+            placeholder="用户名: 注册邮箱"
+            rules={[
+              {
+                required: true,
+                message: '请输入用户名!',
+              },
+            ]}
+          />
+          <Password
+            name="password"
+            placeholder="密码: 密码长度需不少于6个字符"
+            rules={[
+              {
+                required: true,
+                message: '请输入密码!',
+              },
+            ]}
+            onPressEnter={e => {
+              e.preventDefault();
+              this.loginForm.validateFields(this.handleSubmit);
+            }}
+          />
           <div>
             <Checkbox checked={autoLogin} onChange={this.changeAutoLogin}>
               自动登录
@@ -91,9 +89,7 @@ class LoginPage extends Component {
               </Link>
             </div>
           </div>
-          <Submit loading={submitting}>
-            登录
-          </Submit>
+          <Submit loading={submitting}>登录</Submit>
         </Login>
       </div>
     );

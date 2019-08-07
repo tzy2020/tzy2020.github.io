@@ -1,13 +1,11 @@
-import { Component } from 'react';
-import { bytesToSize } from '@/utils/utils';
-import TimelineChart from '@/components/Charts/TimelineChart'
+import React, { Component } from 'react';
+import TimelineChart from '@/components/Charts/TimelineChart';
 import moment from 'moment';
 
 class SysChart extends Component {
-
   getSysMemData = () => {
     const { data } = this.props;
-    if(!data || data.length === 0) return [{}];
+    if (!data || data.length === 0) return [{}];
 
     const dataSource = data.map(item => {
       return {
@@ -22,7 +20,7 @@ class SysChart extends Component {
 
   getSysLoadData = () => {
     const { data } = this.props;
-    if(!data || data.length === 0) return [{}];
+    if (!data || data.length === 0) return [{}];
 
     const dataSource = data.map(item => {
       return {
@@ -40,7 +38,7 @@ class SysChart extends Component {
     return (
       <div>
         <TimelineChart
-          title={'系统内存信息'}
+          title="系统内存信息"
           height={400}
           data={this.getSysMemData()}
           titleMap={{
@@ -50,7 +48,7 @@ class SysChart extends Component {
         />
 
         <TimelineChart
-          title={'系统负载信息'}
+          title="系统负载信息"
           height={400}
           data={this.getSysLoadData()}
           titleMap={{

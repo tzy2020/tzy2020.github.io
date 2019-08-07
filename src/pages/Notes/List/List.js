@@ -1,11 +1,11 @@
-import { Component } from 'react';
+import React, { Component } from 'react';
 import { Table, Divider, Popconfirm, Tag } from 'antd';
 import Link from 'umi/link';
-import React from "react";
+
 import moment from 'moment';
 
 class Search extends Component {
-  buildPreviewHtml(record) {
+  buildPreviewHtml = record => {
     return `
       <!Doctype html>
       <html>
@@ -58,12 +58,12 @@ class Search extends Component {
           <div class="container">${record.htmlContent}</div>
         </body>
       </html>
-    `
-  }
+    `;
+  };
 
   preview = record => {
     if (window.previewWindow) {
-      window.previewWindow.close()
+      window.previewWindow.close();
     }
 
     window.previewWindow = window.open();
@@ -77,8 +77,7 @@ class Search extends Component {
     dispatch({
       type: 'notes/deleteNote',
       noteId,
-    })
-
+    });
   };
 
   columns = () => {
@@ -95,8 +94,8 @@ class Search extends Component {
         title: '共享笔记',
         dataIndex: 'isPublic',
         render: text => {
-          return text == 'true' ? <Tag color="cyan">共享</Tag> : <Tag color="red">私有</Tag>
-        }
+          return text === 'true' ? <Tag color="cyan">共享</Tag> : <Tag color="red">私有</Tag>;
+        },
       },
       {
         title: '创建人',
@@ -110,43 +109,36 @@ class Search extends Component {
       {
         title: '修改人',
         dataIndex: 'updateMan',
-        render: text => text ? text : '-',
+        render: text => text || '-',
       },
       {
         title: '修改时间',
         dataIndex: 'updateTime',
-        render: text => text ? moment(text).format('YYYY-MM-DD HH:mm:ss') : '-',
+        render: text => (text ? moment(text).format('YYYY-MM-DD HH:mm:ss') : '-'),
       },
       {
         title: '操作',
         dataIndex: 'operation',
         render: (text, record) => {
-          return <div>
-            <Link to={`/notes/edit?noteId=${record.noteId}`}>编辑</Link>
-            <Divider type="vertical"/>
-            <Popconfirm
-              title="确认删除？"
-              onConfirm={() => this.deleteNote(record)}
-            >
-              <a>删除</a>
-            </Popconfirm>
-            <Divider type="vertical"/>
-            <a onClick={() => this.preview(record)}>查看</a>
-          </div>
-        }
+          return (
+            <div>
+              <Link to={`/notes/edit?noteId=${record.noteId}`}>编辑</Link>
+              <Divider type="vertical" />
+              <Popconfirm title="确认删除？" onConfirm={() => this.deleteNote(record)}>
+                <a>删除</a>
+              </Popconfirm>
+              <Divider type="vertical" />
+              <a onClick={() => this.preview(record)}>查看</a>
+            </div>
+          );
+        },
       },
-    ]
+    ];
   };
 
   render() {
     const { data } = this.props;
-    return (
-      <Table
-        rowKey={'noteId'}
-        dataSource={data}
-        columns={this.columns()}
-      />
-    )
+    return <Table rowKey="noteId" dataSource={data} columns={this.columns()} />;
   }
 }
 

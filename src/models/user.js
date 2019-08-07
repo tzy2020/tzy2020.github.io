@@ -1,7 +1,4 @@
 import { fetchUsers, deleteUser } from '@/services/user';
-import { setAuthority } from '@/utils/authority';
-import { getPageQuery } from '@/utils/utils';
-import { reloadAuthorized } from '@/utils/Authorized';
 import { message } from 'antd';
 
 export default {
@@ -15,21 +12,21 @@ export default {
   effects: {
     *fetchUsers(_, { call, put }) {
       const { result, success } = yield call(fetchUsers);
-      if(success){
+      if (success) {
         yield put({
           type: 'save',
           result,
         });
       }
     },
-    * deleteUser({ payload }, { call, put }) {
+    *deleteUser({ payload }, { call, put }) {
       const res = yield call(deleteUser, payload);
-      if(res && res.success){
+      if (res && res.success) {
         message.success('删除成功！');
         yield put({ type: 'fetchUsers' });
         return;
       }
-      message.error( res && res.result.msg ? res.result.msg : '删除失败，请稍后再试！')
+      message.error(res && res.result.msg ? res.result.msg : '删除失败，请稍后再试！');
     },
   },
 
