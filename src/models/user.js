@@ -14,11 +14,13 @@ export default {
 
   effects: {
     *fetchUsers(_, { call, put }) {
-      const { result } = yield call(fetchUsers);
-      yield put({
-        type: 'save',
-        result,
-      });
+      const { result, success } = yield call(fetchUsers);
+      if(success){
+        yield put({
+          type: 'save',
+          result,
+        });
+      }
     },
     * deleteUser({ payload }, { call, put }) {
       const res = yield call(deleteUser, payload);

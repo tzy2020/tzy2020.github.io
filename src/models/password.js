@@ -16,11 +16,13 @@ export default {
 
   effects: {
     *fetchPassword(_, { call, put }) {
-      const { result } = yield call(fetchPassword);
-      yield put({
-        type: 'saveState',
-        payload: { list: result },
-      });
+      const { result, success } = yield call(fetchPassword);
+      if(success){
+        yield put({
+          type: 'saveState',
+          payload: { list: result },
+        });
+      }
     },
     * deletePassword({ payload }, { call, put }) {
       const res = yield call(deletePassword, payload);

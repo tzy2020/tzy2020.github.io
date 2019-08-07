@@ -20,13 +20,15 @@ export default {
 
   effects: {
     // 当前用户
-    *fetchCurrentUser(_, { call, put }) {
-      const { result } = yield call(fetchCurrentUser);
-      yield put({
-        type: 'saveCurrentUser',
-        payload: result,
-      });
-      reloadAuthorized();
+    * fetchCurrentUser(_, { call, put }) {
+      const { result, success } = yield call(fetchCurrentUser);
+      if (success) {
+        yield put({
+          type: 'saveCurrentUser',
+          payload: result,
+        });
+        reloadAuthorized();
+      }
     },
   },
 

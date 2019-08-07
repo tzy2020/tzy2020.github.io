@@ -10,13 +10,15 @@ export default {
 
   effects: {
     * fetchProfile(_, { call, put }) {
-      const { result } = yield call(fetchProfile);
-      yield put({
-        type: 'saveState',
-        payload: {
-          ...result,
-        }
-      });
+      const { result, success } = yield call(fetchProfile);
+      if(success){
+        yield put({
+          type: 'saveState',
+          payload: {
+            ...result,
+          }
+        });
+      }
     },
 
     * updateProfile({ payload }, { call, put }) {

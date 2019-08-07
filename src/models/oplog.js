@@ -9,13 +9,15 @@ export default {
 
   effects: {
     * fetchOplog(_, { call, put }) {
-      const { result } = yield call(fetchOplog);
-      yield put({
-        type: 'saveState',
-        payload: {
-          list: result,
-        }
-      });
+      const { result, success } = yield call(fetchOplog);
+      if(success){
+        yield put({
+          type: 'saveState',
+          payload: {
+            list: result,
+          }
+        });
+      }
     },
   },
 

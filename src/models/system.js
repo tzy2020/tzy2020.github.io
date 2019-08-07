@@ -19,13 +19,15 @@ export default {
 
   effects: {
     * fetchSystemConfig(_, { call, put }) {
-      const { result } = yield call(fetchSystemConfig);
-      yield put({
-        type: 'saveState',
-        payload: {
-          ...result,
-        }
-      });
+      const { result, success } = yield call(fetchSystemConfig);
+      if(success){
+        yield put({
+          type: 'saveState',
+          payload: {
+            ...result,
+          }
+        });
+      }
     },
 
     * updateConfig({ payload }, { call, put }) {
@@ -41,15 +43,17 @@ export default {
     },
 
     * fetchSystemInfo(_, { call, put }) {
-      const { result } = yield call(fetchSystemInfo);
-      yield put({
-        type: 'saveState',
-        payload: {
-          systemInfo: {
-            ...result,
-          },
-        }
-      });
+      const { result, success } = yield call(fetchSystemInfo);
+      if(success){
+        yield put({
+          type: 'saveState',
+          payload: {
+            systemInfo: {
+              ...result,
+            },
+          }
+        });
+      }
     },
   },
 
