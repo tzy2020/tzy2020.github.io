@@ -11,14 +11,16 @@ export default {
   },
 
   effects: {
-    * fetchNotesList(_, { call, put }) {
-      const { result } = yield call(fetchNotesList);
-      yield put({
-        type: 'saveState',
-        payload: {
-          list: result,
-        }
-      });
+    * fetchNotesList({ params }, { call, put }) {
+      const { result, success } = yield call(fetchNotesList, params);
+      if (success) {
+        yield put({
+          type: 'saveState',
+          payload: {
+            list: result,
+          }
+        });
+      }
     },
     * fetchNoteDetail({ noteId }, { call, put }) {
       const res = yield call(fetchNoteDetail, { noteId });

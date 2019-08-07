@@ -1,23 +1,15 @@
 import { Component } from 'react';
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
-import { Form, Input, Button, message, Row, Col, Select, Spin } from 'antd';
+import { Form, Input, Button, message, Row, Col, Select, Spin, Switch } from 'antd';
+import { connect } from "dva";
 import moment from 'moment';
 import BraftEditor from 'braft-editor'
 import 'braft-editor/dist/index.css'
-import { connect } from "dva";
 
 const { Item: FormItem } = Form;
-const formItemLayout = {
-  labelCol: {
-    xs: { span: 24 },
-    sm: { span: 8 },
-  },
-  wrapperCol: {
-    xs: { span: 24 },
-    sm: { span: 16 },
-  },
+const layout = {
+  sm: 24, md: 8,
 };
-
 
 @connect(({ notes, loading }) => ({
   notes,
@@ -29,6 +21,16 @@ class Edit extends Component {
   state = {
     editorState: null
   };
+
+  componentWillUnmount(){
+    const { dispatch } = this.props;
+    dispatch({
+      type: 'notes/saveState',
+      payload: {
+        noteDetail: {},
+      }
+    })
+  }
 
   saveContent = async editorState => {
     // 在编辑器获得焦点时按下ctrl+s会执行此方法
@@ -98,7 +100,7 @@ class Edit extends Component {
           </style>
         </head>
         <body>
-          <div class="container">${this.state.editorState.toHTML()}</div>
+          <div class="container">${this.state.editorState && this.state.editorState.toHTML()}</div>
         </body>
       </html>
     `
@@ -116,7 +118,7 @@ class Edit extends Component {
 
   onSubmit = () => {
     const { dispatch, form: { validateFieldsAndScroll }, noteDetail: { noteId } } = this.props;
-    const htmlContent = this.state.editorState.toHTML();
+    const htmlContent = this.state.editorState ? this.state.editorState.toHTML() : '';
     validateFieldsAndScroll((err, values) => {
       if (err === null) {
         dispatch({
@@ -126,6 +128,7 @@ class Edit extends Component {
             keyword: JSON.stringify(values.keyword),
             htmlContent,
             noteId,
+            isPublic: String(values.isPublic),
           },
         })
       }
@@ -143,39 +146,56 @@ class Edit extends Component {
     ];
     const {
       form: { getFieldDecorator },
-      noteDetail: { noteId, htmlContent, title, keyword },
+      noteDetail: { noteId, htmlContent, title, keyword, isPublic },
       submitting,
       fetching,
     } = this.props;
+
     const editorState = BraftEditor.createEditorState(htmlContent);
 
     return (
       <PageHeaderWrapper>
         <Spin spinning={Boolean(fetching)}>
           <h3>{noteId === undefined ? '添加笔记' : '更新笔记'}</h3>
-          <Form
-            style={{ width: '70%' }}
-            {...formItemLayout}
-          >
-            <FormItem label={'标题'}>
-              {getFieldDecorator('title', {
-                initialValue: title
-              })(
-                <Input
-                  placeholder={'请输入笔记标题'}
-                />
-              )}
-            </FormItem>
-            <FormItem label={'关键词'}>
-              {getFieldDecorator('keyword', {
-                initialValue: keyword,
-              })(
-                <Select
-                  mode={'tags'}
-                  placeholder={'请输入笔记关键词，按回车结束'}
-                />
-              )}
-            </FormItem>
+          <Form>
+            <Row gutter={20}>
+              <Col { ...layout }>
+                <FormItem label={'标题'}>
+                  {getFieldDecorator('title', {
+                    initialValue: title
+                  })(
+                    <Input
+                      placeholder={'请输入笔记标题'}
+                    />
+                  )}
+                </FormItem>
+              </Col>
+              <Col { ...layout }>
+                <FormItem label={'关键词'}>
+                  {getFieldDecorator('keyword', {
+                    initialValue: keyword,
+                  })(
+                    <Select
+                      mode={'tags'}
+                      placeholder={'请输入笔记关键词，按回车结束'}
+                    />
+                  )}
+                </FormItem>
+              </Col>
+              <Col { ...layout }>
+                <FormItem label={'是否共享'}>
+                  {getFieldDecorator('isPublic', {
+                    valuePropName: 'checked',
+                    initialValue:  isPublic === 'true' ? true : false,
+                  })(
+                    <Switch
+                      checkedChildren="共享"
+                      unCheckedChildren="私有"
+                    />
+                  )}
+                </FormItem>
+              </Col>
+            </Row>
           </Form>
           <BraftEditor
             defaultValue={htmlContent ? editorState : undefined}

@@ -11,10 +11,11 @@ import { connect } from "dva";
   list: notes.list,
 }))
 class Noets extends Component {
-  onSubmit = () => {
+  onSubmit = params => {
     const { dispatch } = this.props;
     dispatch({
-      type: 'notes/fetchNotesList'
+      type: 'notes/fetchNotesList',
+      params,
     });
   };
 

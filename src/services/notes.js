@@ -3,8 +3,10 @@ import { baseApi } from './baseApi';
 
 const { notesApi } = baseApi;
 
-export async function fetchNotesList() {
-  return request(`${notesApi}/list`);
+export async function fetchNotesList(params) {
+  return request(`${notesApi}/list`, {
+    params,
+  });
 }
 
 export async function fetchNoteDetail(params) {

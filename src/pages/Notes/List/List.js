@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import { Table, Divider, Popconfirm } from 'antd';
+import { Table, Divider, Popconfirm, Tag } from 'antd';
 import Link from 'umi/link';
 import React from "react";
 import moment from 'moment';
@@ -92,6 +92,13 @@ class Search extends Component {
         dataIndex: 'keyword',
       },
       {
+        title: '共享笔记',
+        dataIndex: 'isPublic',
+        render: text => {
+          return text == 'true' ? <Tag color="cyan">共享</Tag> : <Tag color="red">私有</Tag>
+        }
+      },
+      {
         title: '创建人',
         dataIndex: 'inputMan',
       },
@@ -103,6 +110,7 @@ class Search extends Component {
       {
         title: '修改人',
         dataIndex: 'updateMan',
+        render: text => text ? text : '-',
       },
       {
         title: '修改时间',

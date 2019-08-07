@@ -135,7 +135,6 @@ class Password extends Component {
         <Divider type="vertical"/>
         <a onClick={() => {
           this.toggleEditDrawer({ visible: true, title: '修改密码', record });
-          console.log(record, '======record');
         }}>修改</a>
       </div>
     },
