@@ -69,7 +69,7 @@ export default class SiderMenu extends PureComponent {
         <div className={styles.logo} id="logo">
           <Link to="/">
             <img src={logo} alt="logo" />
-            {!collapsed && <h1>{title}</h1>}
+            {!collapsed && <h1 style={{ marginLeft: 7 }}>{title}</h1>}
           </Link>
         </div>
         <Suspense fallback={<PageLoading />}>

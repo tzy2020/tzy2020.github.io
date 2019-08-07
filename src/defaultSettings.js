@@ -9,7 +9,7 @@ module.exports = {
   menu: {
     disableLocal: false,
   },
-  title: '个人信息化平台',
+  title: 'LiuShuaiqi.Top',
   pwa: false,
   // your iconfont Symbol Scrip Url
   // eg：//at.alicdn.com/t/font_1039637_btcrd5co4w.js

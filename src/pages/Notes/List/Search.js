@@ -25,6 +25,11 @@ class Search extends Component {
     });
   };
 
+  reset = () => {
+    this.props.form.resetFields();
+    this.onSearch();
+  };
+
   render() {
     const { form: { getFieldDecorator } } = this.props;
     return (
@@ -56,7 +61,7 @@ class Search extends Component {
         </Row>
         <Row style={{ textAlign: 'right' }}>
           <Button type={'primary'} onClick={this.onSearch}>查询</Button>
-          <Button style={{ marginLeft: 20 }}>重置</Button>
+          <Button style={{ marginLeft: 20 }} onClick={this.reset}>重置</Button>
         </Row>
       </Form>
     )

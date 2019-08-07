@@ -83,6 +83,12 @@ export default [
         ]
       },
       {
+        path: '/oplog',
+        icon: 'solution',
+        name: 'oplog',
+        component: './Oplog',
+      },
+      {
         path: 'https://blog.liushuaiqi.top',
         icon: 'read',
         name: 'blog',

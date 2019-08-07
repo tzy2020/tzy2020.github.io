@@ -11,4 +11,5 @@ export const baseApi = {
   profileApi: `${baseurl}/api/profile`,
   passwordApi: `${baseurl}/api/password`,
   spiderApi: `${baseurl}/api/spider`,
+  oplogApi: `${baseurl}/api/oplog`,
 };

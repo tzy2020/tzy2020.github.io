@@ -62,7 +62,7 @@ class UserLayout extends Component {
               <div className={styles.header}>
                 <Link to="/">
                   <img alt="logo" className={styles.logo} src={logo} />
-                  <span className={styles.title}>个人信息化平台</span>
+                  <span className={styles.title}>LiuShuaiqi.Top</span>
                 </Link>
               </div>
               <div className={styles.desc}>

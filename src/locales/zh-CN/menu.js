@@ -20,5 +20,9 @@ export default {
 
   'menu.user': '用户管理',
 
+  'menu.oplog': '操作日志',
+
   'menu.blog': '站长博客',
+
+
 };
