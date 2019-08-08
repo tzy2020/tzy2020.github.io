@@ -14,6 +14,9 @@ export default {
 
   'menu.laboratory': '实验室',
 
+  'menu.tool': '工具箱',
+  'menu.tool.pdf': 'PDF管理',
+
   'menu.profile': '个人中心',
 
   'menu.system': '系统管理',

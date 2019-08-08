@@ -57,6 +57,20 @@ export default [
         component: './Laboratory',
       },
       {
+        path: '/tool',
+        icon: 'shop',
+        name: 'tool',
+        routes: [
+          { path: '/tool', redirect: '/tool/pdf' },
+          {
+            path: '/tool/pdf',
+            icon: 'file-pdf',
+            name: 'pdf',
+            component: './Tool/Pdf',
+          },
+        ]
+      },
+      {
         path: '/profile',
         icon: 'bank',
         name: 'profile',

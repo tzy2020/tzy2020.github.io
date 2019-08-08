@@ -1,20 +1,21 @@
 import React, { Component } from 'react';
 import { connect } from 'dva';
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
+import PdfComponent from './pdf';
 
-@connect(({ spider, loading }) => ({
-  spider,
-  loading: loading.models.spider,
+@connect(({ pdf, loading }) => ({
+  pdf,
+  loading: loading.models.pdf,
 }))
-class Spider extends Component {
+class Pdf extends Component {
 
   render() {
     return (
       <PageHeaderWrapper>
-        Spider 休息中～
+        <PdfComponent />
       </PageHeaderWrapper>
     );
   }
 }
 
-export default Spider;
+export default Pdf;
