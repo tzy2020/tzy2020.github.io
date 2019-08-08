@@ -1,7 +1,9 @@
 
 // eslint-disable-next-line
-export const userRole = {
-  1: '普通用户',
-  // 2: '管理员',
-  1024: '超级管理员',
-}
+export const userRolesMap = {
+  '1': 'guest',
+  '666': 'vip',
+  '888': 'super vip',
+  '1000': 'admin',
+  '1024': 'super admin',
+};

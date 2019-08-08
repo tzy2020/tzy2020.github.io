@@ -12,6 +12,8 @@ export default {
 
   'menu.spider': 'Spider',
 
+  'menu.laboratory': '实验室',
+
   'menu.profile': '个人中心',
 
   'menu.system': '系统管理',

@@ -24,3 +24,12 @@ export async function deleteUser(params) {
     data: params,
   });
 }
+
+export async function submitUserInfo(params) {
+  return request(`${userApi}`, {
+    method: 'POST',
+    data: {
+      ...params
+    }
+  });
+}

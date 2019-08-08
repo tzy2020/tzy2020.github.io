@@ -1,48 +1,35 @@
 import React, { Component } from 'react';
 import { connect } from 'dva';
-import { Modal, Select, Table, Tag, Popconfirm } from 'antd';
+import { Table, Tag, Popconfirm, Divider } from 'antd';
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
 import styles from './index.less';
-import { userRole } from '../../constant';
+import { userRolesMap } from '../../constant';
+import EditDrawer from "./EditDrawer";
 
-const { Option } = Select;
 
 @connect(({ user, loading }) => ({
   user,
-  loading: loading.models.user,
+  loading: loading.effects['user/fetchUsers'],
+  submiting: loading.effects['user/submitUserInfo']
 }))
 class Users extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      showUpdateRoleModal: false,
-      editRecord: {},
-    };
-  }
 
-  toggleUpdateRoleModal = (visible, record = {}) => {
-    this.setState({
-      showUpdateRoleModal: visible,
-      editRecord: record,
-    });
-  };
-
-  changeUserRole = value => {
-    const { editRecord } = this.state;
-    this.setState({
-      editRecord: {
-        ...editRecord,
-        role: value,
-      },
-    });
-  };
-
-  updateUserRole = () => {
+  toggleEditDrawer = ({ title, visible, record = {} }) => {
     const { dispatch } = this.props;
-    const { editRecord } = this.state;
-    dispatch({ type: 'user/updateUserRole', editRecord }).then(() => {
-      this.toggleUpdateRoleModal(false, {});
+    dispatch({
+      type: 'user/saveState',
+      payload: {
+        title, visible, record,
+      }
     });
+  };
+
+  onSubmit = params => {
+    const { dispatch } = this.props;
+    dispatch({
+      type: 'user/submitUserInfo',
+      payload: params,
+    })
   };
 
   deleteUser = record => {
@@ -67,36 +54,42 @@ class Users extends Component {
       className: styles['user-name'],
     },
     {
-      title: '操作',
-      dataIndex: 'operation',
-      render: (text, record) => <Popconfirm
-        title="确认删除？"
-        onConfirm={() => this.deleteUser(record)}
-      >
-        <a>删除</a>
-      </Popconfirm>
+      title: '昵称',
+      dataIndex: 'nickname',
+      className: styles['user-name'],
     },
     {
       title: '权限',
-      dataIndex: 'role',
+      dataIndex: 'userRole',
       className: styles['user-role'],
       render: (text, record) => (
-        <Tag
-          color={text === 2 ? 'blue' : text === 1024 ? 'red' : ''}
-          onClick={() => this.toggleUpdateRoleModal(true, record)}
-        >
-          {userRole[text]}
+        <Tag color={text === 2 ? 'blue' : text === 1024 ? 'red' : ''}>
+          {userRolesMap[text]}
         </Tag>
       ),
+    },
+    {
+      title: '操作',
+      dataIndex: 'operation',
+      render: (text, record) => <div>
+        <Popconfirm
+          title="确认删除？"
+          onConfirm={() => this.deleteUser(record)}
+        >
+          <a>删除</a>
+        </Popconfirm>
+        <Divider type="vertical" />
+        <a onClick={() => this.toggleEditDrawer({ title: `用户编辑：${record.nickname}`, visible: true, record })}>编辑</a>
+      </div>
     },
   ];
 
   render() {
     const {
       loading,
-      user: { list },
+      submiting,
+      user: { list, visible, title, record },
     } = this.props;
-    const { showUpdateRoleModal, editRecord } = this.state;
     return (
       <PageHeaderWrapper>
         <Table
@@ -111,25 +104,14 @@ class Users extends Component {
           columns={this.columns()}
           dataSource={list}
         />
-        <Modal
-          title={`修改权限: ${editRecord.nickname}`}
-          visible={showUpdateRoleModal}
-          onCancel={() => this.toggleUpdateRoleModal(false)}
-          onOk={this.updateUserRole}
-          destroyOnClose
-          maskClosable={false}
-        >
-          <span>权限：</span>
-          <Select
-            className={styles['role-select']}
-            defaultValue={editRecord.role && editRecord.role.toString()}
-            onChange={value => this.changeUserRole(value)}
-          >
-            {Object.keys(userRole).map(item => (
-              <Option key={item}>{userRole[item]}</Option>
-            ))}
-          </Select>
-        </Modal>
+        <EditDrawer
+          onSubmit={this.onSubmit}
+          submiting={submiting}
+          title={title}
+          visible={visible}
+          record={record}
+          toggleEditDrawer={this.toggleEditDrawer}
+        />
       </PageHeaderWrapper>
     );
   }

@@ -26,6 +26,10 @@ class Oplog extends Component {
       dataIndex: 'href',
     },
     {
+      title: 'Method',
+      dataIndex: 'method',
+    },
+    {
       title: 'IP',
       dataIndex: 'ip',
     },

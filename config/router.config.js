@@ -51,6 +51,12 @@ export default [
         component: './Spider',
       },
       {
+        path: '/laboratory',
+        icon: 'bulb',
+        name: 'laboratory',
+        component: './Laboratory',
+      },
+      {
         path: '/profile',
         icon: 'bank',
         name: 'profile',

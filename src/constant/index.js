@@ -1,4 +1,4 @@
-import { userRole } from './global';
+import { userRolesMap } from './global';
 
 // eslint-disable-next-line
-export { userRole };
+export { userRolesMap };
