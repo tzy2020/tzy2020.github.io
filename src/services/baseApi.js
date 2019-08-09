@@ -1,6 +1,6 @@
 const env = window.location.origin.includes('localhost') ? 'dev' : 'prod';
 
-const baseurl = env === 'prod' ? 'https://api.liushuaiqi.top:1994' : 'http://127.0.0.1:7001';
+const baseurl = env === 'prod' ? 'https://api.liushuaiqi.top' : 'http://127.0.0.1:7001';
 
 export const serverHost = baseurl;
 
